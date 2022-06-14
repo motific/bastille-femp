@@ -1,0 +1,23 @@
+#ARG ZM_USER=zmuser
+#ARG ZM_PASS=zmpass
+#ARG ZM_DBNAME=zmdb
+#ARG OS_USER=www
+
+INCLUDE https://github.com/shadow53-bastille/pkg-latest
+INCLUDE https://gitlab.com/bastillebsd-templates/nginx
+INCLUDE https://gitlab.com/bastillebsd-templates/mysql-server
+INCLUDE https://gitlab.com/bastillebsd-templates/php
+
+PKG fcgiwrap
+
+SYSRC fcgiwrap_enable=YES
+SYSRC fcgiwrap_user=www
+SYSRC fcgiwrap_socket_owner=www
+SYSRC fcgiwrap_flags=\"-c 4\"
+
+CP usr /
+
+# todo: tokenise scripts using sed and ARGs to set passwords
+# todo: configure fstab for in-memory cache
+# todo: run zoneminder-db.sql script to create mysql database
+# todo: restart jail with sysctls
